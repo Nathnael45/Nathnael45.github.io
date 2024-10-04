@@ -18,15 +18,22 @@ export default function Home() {
           {/* Info  */}
           <div className="lg:w-2/3 lg:pl-16">
             <h1 className="text-4xl font-bold mb-4">Hi, my name is Nathnael Tesfaw!</h1>
+              <p>I am currently a student studying 
+                Computer Science at Cornell University. 
+                I am passionate about computer science due to 
+                the many ingenious solutions one can produce
+                 to tackle the ever-present problems in our world.
+                  Hence, I aspire to work in technology, coding, and software engineering.</p>
+            <br />
             <h2 className="text-2xl font-bold mb-4">Projects</h2>
             <h3></h3>
             <div className="text-lg leading-relaxed">
              <a className  = "underline" href="https://github.com/Nathnael45/WorkoutHub"> <span>Workout Hub</span></a>
              <br />
-             <br />
+             
               <a className  = "underline" href="https://github.com/dvala041/Lost_And_Found"> <span>Lost and Found App</span></a>
               <br />
-              <br />
+              
               <a className  = "underline" href="https://github.com/Nathnael45/Space-Game"> <span>Space Game</span></a>
 
             </div>
