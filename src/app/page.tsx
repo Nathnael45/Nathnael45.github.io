@@ -28,7 +28,7 @@ export default function Home() {
             <h2 className="text-2xl font-bold mb-4">Projects</h2>
             <h3></h3>
             <div className="text-lg leading-relaxed">
-             <a className  = "underline" href="https://github.com/Nathnael45/WorkoutHub"> <span>Workout Hub</span></a>
+             <a className  = "underline" href="https://workout-hub-git-main-nathnael45s-projects.vercel.app/"> <span>Workout Hub</span></a>
              <br />
              
               <a className  = "underline" href="https://github.com/dvala041/Lost_And_Found"> <span>Lost and Found App</span></a>
