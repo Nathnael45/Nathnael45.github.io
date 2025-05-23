@@ -2,21 +2,24 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+
+permissions:
+  contents: write      # allow pushing commits
+  pages: write         # allow Pages API
+  id-token: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # Add working directory for all npm commands
       - name: Install dependencies
         working-directory: ./portfolio
         run: npm install
@@ -25,10 +28,12 @@ jobs:
         working-directory: ./portfolio
         run: npm run build
 
-      - name: Deploy
+      - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./portfolio/out
           publish_branch: gh-pages
-          force_orphan: true # Optional: force orphan branch
+          force_orphan: true             # ← completely replace gh-pages
+          user_name: github-actions      # optional, commits author
+          user_email: action@github.com  # optional, commits author
