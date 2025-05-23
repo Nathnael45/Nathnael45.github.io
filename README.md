@@ -1,10 +1,10 @@
-# Personal Portfolio Website
+# [Personal Portfolio Website](https://nathnael45.github.io/)
 
-Welcome to my portfolio! Check out my work and latest updates on my [personal website](https://nathnael45.github.io/).
+Welcome to my portfolio! Check out my work and latest updates on my personal website.
 
 A modern, responsive portfolio website built with Next.js, React, and Tailwind CSS.
 
-![Portfolio Preview](portfolio/public/prev.png)
+Link: https://nathnael45.github.io/
 
 ## 🚀 Features
 
