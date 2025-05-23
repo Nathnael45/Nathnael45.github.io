@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Github, Linkedin, Mail } from "lucide-react"
+import { Github, Linkedin, Mail, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function Footer() {
@@ -27,10 +27,15 @@ export default function Footer() {
                 <Mail className="h-5 w-5" />
               </Button>
             </Link>
+            <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <Button variant="ghost" size="icon" aria-label="Resume">
+                <FileText className="h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
-          © {new Date().getFullYear()} Nathnael Tesfaw. All rights reserved.
+           {new Date().getFullYear()} Nathnael Tesfaw. 
         </div>
       </div>
     </footer>

@@ -31,7 +31,7 @@ export default function Home() {
                 
                 <h1 className="text-4xl md:text-6xl font-bold tracking-tight">Hi, I'm Nathnael Tesfaw</h1>
                 <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                  I'm a Computer Science student at Cornell University with a minor in A.I. I'm passionate about
+                  I'm a Computer Science student at Cornell University with a minor in Artificial Intelligence. I'm passionate about
                   creating innovative solutions to real-world problems through technology, coding, and software
                   engineering.
                 </p>
@@ -50,11 +50,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-4">
-                  <Button size="lg" asChild>
-                    <Link href="/projects">
-                      View Projects <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
+
                   <Button size="lg" variant="outline" asChild>
                     <Link href="https://linkedin.com/in/nathnael-tesfaw" target="_blank" rel="noopener noreferrer">
                       <Linkedin className="mr-2 h-4 w-4" /> LinkedIn
@@ -81,13 +77,11 @@ export default function Home() {
             </section>
           </PageTransition>
         )}
-
-        {/* Featured Projects Preview with staggered animation */}
-        {mounted && (
+      {/* Featured Projects Preview with staggered animation */}
+      {mounted && (
           <PageTransition className="delay-300">
             <section className="space-y-8">
               <div className="space-y-2">
-                <Badge variant="outline">Featured Work</Badge>
                 <h2 className="text-3xl font-bold">Recent Projects</h2>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
@@ -95,7 +89,7 @@ export default function Home() {
                 <Card className="group overflow-hidden">
                   <div className="relative h-48 overflow-hidden">
                     <Image
-                      src="/placeholder.svg?height=400&width=600"
+                      src="/workout.jpg"
                       alt="Workout Hub"
                       fill
                       className="object-cover transition-transform group-hover:scale-105"
@@ -116,7 +110,7 @@ export default function Home() {
                 <Card className="group overflow-hidden">
                   <div className="relative h-48 overflow-hidden">
                     <Image
-                      src="/placeholder.svg?height=400&width=600"
+                      src="/lostandfound.jpg"
                       alt="Lost and Found App"
                       fill
                       className="object-cover transition-transform group-hover:scale-105"
@@ -137,19 +131,19 @@ export default function Home() {
                 <Card className="group overflow-hidden">
                   <div className="relative h-48 overflow-hidden">
                     <Image
-                      src="/placeholder.svg?height=400&width=600"
-                      alt="Greenzone"
+                      src="/invaders.png"
+                      alt="Space Game"
                       fill
                       className="object-cover transition-transform group-hover:scale-105"
                     />
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold mb-2">Greenzone</h3>
+                    <h3 className="text-xl font-bold mb-2">Space Game </h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
-                      Web application delivering data to secure livelihoods of herders in Mongolia
+                        A modernized and enhanced version of the classic space invaders game
                     </p>
                     <Button asChild>
-                      <Link href="/projects#greenzone">View Details</Link>
+                      <Link href="/projects#space-game">View Details</Link>
                     </Button>
                   </CardContent>
                 </Card>
@@ -164,14 +158,12 @@ export default function Home() {
             </section>
           </PageTransition>
         )}
-
         {/* Skills Preview with staggered animation */}
         {mounted && (
           <PageTransition className="delay-500">
             <section className="space-y-8">
               <div className="space-y-2">
-                <Badge variant="outline">My Expertise</Badge>
-                <h2 className="text-3xl font-bold">Skills Overview</h2>
+                <h2 className="text-3xl font-bold"> My Skills </h2>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <Card className="text-center p-6">

@@ -40,7 +40,7 @@ export default function EducationPage() {
               <h3 className="text-xl font-semibold mb-4">Relevant Coursework</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <CourseCard
-                  title="CS 2110: Object-Oriented Programming & Data Structures"
+                  title="CS 2110: Object-Oriented Programming & Data Structures with Java"
                   description="Fundamentals of object-oriented design, analysis, and programming. Topics include data structures, algorithm analysis, and software engineering principles."
                 />
                 <CourseCard
@@ -68,8 +68,8 @@ export default function EducationPage() {
                   description="Fundamentals of computer security, cryptography, network security, and ethical hacking techniques."
                 />
                 <CourseCard
-                  title="INFO 1998:Trends in Web Development"
-                  description="Exploration of modern web technologies, frameworks, and best practices for building responsive and interactive web applications."
+                  title="CS 1110: Introduction to Computing: A Design and Development Perspective with Python"
+                  description="Introduction to programming concepts using Python. Topics include variables, control structures, functions, and data structures."
                 />
               </div>
             </div>

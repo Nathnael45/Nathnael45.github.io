@@ -7,7 +7,6 @@ export default function SkillsPage() {
   return (
     <PageShell>
       <PageHeader
-        badge="My Expertise"
         title="Skills & Technologies"
         description="An overview of my technical skills, tools, and areas of expertise in software development."
       />
@@ -24,17 +23,17 @@ export default function SkillsPage() {
 
             <SkillCard
               title="Frontend Development"
-              skills={["React", "Next.js", "HTML5", "CSS3/SCSS", "Tailwind CSS", "Flutter", "Responsive Design"]}
+              skills={["React", "Next.js", "HTML5", "CSS3", "Tailwind CSS", "Flutter", "MUI "]}
             />
 
             <SkillCard
               title="Backend Development"
-              skills={["Node.js", "Express.js", "Flask-SQL", "RESTful APIs", "GraphQL", "Authentication", "Serverless"]}
+              skills={["Node.js", "Express.js", "Flask-SQL", "RESTful APIs", "GraphQL", "JWT Authentication", "Serverless"]}
             />
 
             <SkillCard
               title="Databases & Storage"
-              skills={["MongoDB", "PostgreSQL", "Firebase", "Supabase", "SQL", "NoSQL", "Data Modeling"]}
+              skills={["MongoDB", "PostgreSQL", "Firebase", "Supabase"]}
             />
           </div>
         </div>
@@ -71,107 +70,11 @@ export default function SkillsPage() {
                   <Badge variant="secondary">Vercel</Badge>
                   <Badge variant="secondary">Azure Labs</Badge>
                   <Badge variant="secondary">Firebase</Badge>
-                  <Badge variant="secondary">AWS (basics)</Badge>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg">Design & Collaboration</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">Figma</Badge>
-                  <Badge variant="secondary">Adobe XD</Badge>
-                  <Badge variant="secondary">Jira</Badge>
-                  <Badge variant="secondary">Trello</Badge>
-                  <Badge variant="secondary">Slack</Badge>
-                  <Badge variant="secondary">Notion</Badge>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        {/* Areas of Expertise */}
-        <div>
-          <h2 className="text-2xl font-bold mb-6">Areas of Expertise</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Software Development</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-gray-600 dark:text-gray-400">
-                  I specialize in full-stack development with a focus on creating responsive, user-friendly
-                  applications. My experience spans from frontend UI/UX implementation to backend API design and
-                  database management.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">Full-Stack Development</Badge>
-                  <Badge variant="secondary">API Design</Badge>
-                  <Badge variant="secondary">Database Management</Badge>
-                  <Badge variant="secondary">User Authentication</Badge>
-                  <Badge variant="secondary">Responsive Design</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Artificial Intelligence</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-gray-600 dark:text-gray-400">
-                  With my minor in A.I., I've developed skills in machine learning algorithms, neural networks, and data
-                  analysis. I'm passionate about applying AI solutions to real-world problems.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">Machine Learning</Badge>
-                  <Badge variant="secondary">Neural Networks</Badge>
-                  <Badge variant="secondary">Data Analysis</Badge>
-                  <Badge variant="secondary">Natural Language Processing</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Embedded Systems</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-gray-600 dark:text-gray-400">
-                  I have experience working with embedded systems, including programming microcontrollers and
-                  understanding hardware interfaces. My coursework in Digital Logic and Computer Organization has
-                  provided a strong foundation in this area.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">Microcontroller Programming</Badge>
-                  <Badge variant="secondary">Hardware Interfaces</Badge>
-                  <Badge variant="secondary">RISC-V</Badge>
-                  <Badge variant="secondary">Digital Logic</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Cybersecurity</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-gray-600 dark:text-gray-400">
-                  My coursework in Cybersecurity has given me knowledge of security principles, cryptography, and secure
-                  coding practices. I implement these principles in my development work to create secure applications.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">Secure Coding</Badge>
-                  <Badge variant="secondary">Authentication Systems</Badge>
-                  <Badge variant="secondary">Data Protection</Badge>
-                  <Badge variant="secondary">Security Best Practices</Badge>
-                </div>
-              </CardContent>
-            </Card>
+           
           </div>
         </div>
 
