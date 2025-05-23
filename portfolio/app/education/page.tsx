@@ -2,12 +2,12 @@ import PageShell from "@/components/page-shell"
 import PageHeader from "@/components/page-header"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Divide } from "lucide-react"
 
 export default function EducationPage() {
   return (
     <PageShell>
       <PageHeader
-        badge="My Education"
         title="Academic Background"
         description="Details about my educational journey, coursework, and academic achievements."
       />
@@ -16,17 +16,24 @@ export default function EducationPage() {
         <Card>
           <CardHeader>
             <div className="flex justify-between items-start flex-wrap gap-4">
-              <div>
-                <CardTitle className="text-2xl">Cornell University, College of Engineering</CardTitle>
-                <CardDescription className="text-lg">
+                <div className="flex flex-col">
+                <div className="text-xl font-bold text-gray-800 dark:text-gray-200">
+                  Cornell University, College of Engineering
+                </div>
+                <div className="text-base text-gray-500 dark:text-gray-400">
                   Bachelor of Science in Computer Science, Minor in A.I.
-                </CardDescription>
+                </div>
+                </div>
+                <div className="flex flex-col items-end">
+                <div className="text-xl font-bold text-gray-800 dark:text-gray-200">
+                  May 2027
+                </div>
+                <div className="text-base text-gray-500 dark:text-gray-400 mt-2">
+                  GPA: 3.5
+                </div>
+                </div>
               </div>
-              <div className="flex flex-col items-end">
-                <Badge>May 2027</Badge>
-                <span className="text-sm text-gray-500 dark:text-gray-400 mt-2">GPA: 3.5</span>
-              </div>
-            </div>
+            
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
@@ -61,7 +68,7 @@ export default function EducationPage() {
                   description="Fundamentals of computer security, cryptography, network security, and ethical hacking techniques."
                 />
                 <CourseCard
-                  title="INFO 1998: Trends in Web Development"
+                  title="INFO 1998:Trends in Web Development"
                   description="Exploration of modern web technologies, frameworks, and best practices for building responsive and interactive web applications."
                 />
               </div>
