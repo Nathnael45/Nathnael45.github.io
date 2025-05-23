@@ -2,7 +2,7 @@
 
 A modern, responsive portfolio website built with Next.js, React, and Tailwind CSS.
 
-![Portfolio Preview](public/mepicture.jpg)
+![Portfolio Preview](public/prev.png)
 
 ## 🚀 Features
 
