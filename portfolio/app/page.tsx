@@ -98,7 +98,7 @@ export default function Home() {
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold mb-2">Workout Hub</h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
-                      A fitness tracking application that helps users monitor their workout progress
+                      A MERN based fitness tracking website that helps users monitor their workout progress
                     </p>
                     <Button asChild>
                       <Link href="/projects#workout-hub">View Details</Link>
@@ -119,7 +119,7 @@ export default function Home() {
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold mb-2">Lost and Found App</h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
-                      A platform connecting people who have lost items with those who have found them
+                      A fullstack application connecting people who have lost items with those who have found them
                     </p>
                     <Button asChild>
                       <Link href="/projects#lost-and-found">View Details</Link>
@@ -131,19 +131,19 @@ export default function Home() {
                 <Card className="group overflow-hidden">
                   <div className="relative h-48 overflow-hidden">
                     <Image
-                      src="/invaders.png"
-                      alt="Space Game"
+                      src="/A6.png"
+                      alt="Interactive Image Selector"
                       fill
                       className="object-cover transition-transform group-hover:scale-105"
                     />
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold mb-2">Space Game </h3>
+                    <h3 className="text-xl font-bold mb-2">Interactive Image Selector</h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
-                        A modernized and enhanced version of the classic space invaders game
+                      A Java Swing tool for selecting and extracting arbitrary image regions.
                     </p>
                     <Button asChild>
-                      <Link href="/projects#space-game">View Details</Link>
+                      <Link href="/projects#interactive-image-selector">View Details</Link>
                     </Button>
                   </CardContent>
                 </Card>
