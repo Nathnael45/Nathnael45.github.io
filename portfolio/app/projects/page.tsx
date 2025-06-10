@@ -132,9 +132,65 @@ export default function ProjectsPage() {
           </Card>
         </div>
         {/* Project 3 */}
-        <div id="space-game" className="scroll-mt-20">
+        <div id="project-4" className="scroll-mt-20">
           <Card className="overflow-hidden">
             <div className="md:flex">
+              <div className="md:w-1/2 relative h-64 md:h-auto">
+                <Image
+                  src="/A6.png"
+                  alt="Project 4 Screenshot"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="md:w-1/2 p-6 md:p-8">
+                <CardHeader className="p-0 mb-4">
+                  <CardTitle className="text-2xl">Interactive image selector</CardTitle>
+                  <CardDescription className="text-lg">
+                     A Java Swing tool for selecting and extracting arbitrary image regions using either simple point-to-point 
+                     clicks or an “intelligent scissors” live-wire algorithm.
+
+
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-0 space-y-4">
+                  <p className="text-gray-600 dark:text-gray-400">
+                   SelectorAppis a Java/Swing desktop application offering two selection modes. In Point-to-Point mode,
+                    you build straight-line segments by clicking endpoints. In Intelligent Scissors mode, the app computes 
+                    real-time live-wire paths using Dijkstra’s algorithm on a pixel graph with interchangeable monotone or 
+                    full-color weight functions. Under the hood, it uses custom min-heap and list-based priority queues, 
+                     a generic shortest-paths engine, and JUnit 5 tests to validate graph and selector logic.
+                  </p>
+                  <div>
+                    <h3 className="font-semibold mb-2">Key Features:</h3>
+                    <ul className="list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-400">
+                      <li>Dual-mode selection with seamless model switching</li>
+                      <li>Undo/redo/reset/finish controls and menu integration</li>
+                      <li>Pluggable weight functions </li>
+                      <li>Real-time “live-wire” preview and progress bar while pathfinding</li>
+                    </ul>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline">Java</Badge>
+                    <Badge variant="outline">Swing</Badge>
+                    <Badge variant="outline">J-Unit testing</Badge>
+                  </div>
+                </CardContent>
+                <CardFooter className="p-0 mt-6 flex gap-4">
+                  <Button asChild>
+                    <Link href="https://drive.google.com/file/d/1tb53XM5BVRz8JGiehciLkvXkAbhuFI3X/view?usp=sharing" target="_blank">
+                      <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </div>
+            </div>
+          </Card>
+        </div>
+        {/* Project 4 */}
+        <div id="space-game" className="scroll-mt-20">
+          <Card className="overflow-hidden">
+            <div className="md:flex flex-row-reverse">
               <div className="md:w-1/2 relative h-64 md:h-auto">
                 <Image
                   src="/invaders.png"

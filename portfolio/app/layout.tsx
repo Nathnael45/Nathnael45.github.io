@@ -8,7 +8,12 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Nathnael Tesfaw - Portfolio",
   description: "Computer Science student at Cornell University passionate about technology and software engineering.",
-    generator: 'v0.dev'
+    generator: 'v0.dev',
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon-32x32.png",
+  },
 }
 
 export default function RootLayout({
