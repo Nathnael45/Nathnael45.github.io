@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import type { Easing } from "framer-motion"
 import type { ReactNode } from "react"
 
 const fadeInUp = {
@@ -8,7 +9,7 @@ const fadeInUp = {
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: "easeOut", delay: i * 0.08 },
+    transition: { duration: 0.35, ease: "easeOut" as Easing, delay: i * 0.08 },
   }),
 }
 
