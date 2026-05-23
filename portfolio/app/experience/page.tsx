@@ -1,128 +1,83 @@
 import PageShell from "@/components/page-shell"
-import PageHeader from "@/components/page-header"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { experiences } from "@/lib/data"
+import { ScrollReveal } from "@/components/scroll-reveal"
 
 export default function ExperiencePage() {
   return (
     <PageShell>
-      <PageHeader
-        title="My Professional Journey"
-        description="A detailed overview of my work experience, projects, and professional achievements."
-      />
-      
-      <div className="space-y-8">
-        {/* Hack4Impact Cornell */}
-        <Card>
-          <CardHeader>
-            <div className="flex justify-between items-start flex-wrap gap-2">
-              <div>
-                <CardTitle className="text-2xl">Hack4Impact Cornell</CardTitle>
-                <CardDescription className="text-lg">Software Developer</CardDescription>
-              </div>
-              <div className="flex flex-col items-end">
-                <CardTitle className="text-2xl">
-                   September 2024 - Present
-                </CardTitle>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div>
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-semibold">Greenzone Project</h3>
-                <h3 className="text-xl font-semibold">January 2025 - May 2025</h3>
-              </div>
-              <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-400">
-                <li>
-                  Built a web-app to deliver data that secures the livelihoods of 300,000+ herders and their livestock
-                  in Mongolia.
-                </li>
-                <li>
-                  Engineered data retrieval and modification functionalities for map data using Supabase and PostgreSQL.
-                </li>
-                <li>
-                  Established robust API-Routing from backend to the Next.js frontend using Node.js and Express.js.
-                </li>
-                <li>
-                  Collaborated with a team of developers to implement features according to client specifications.
-                </li>
-                <li>
-                  Participated in weekly code reviews and agile development processes to ensure high-quality
-                  deliverables.
-                </li>
-              </ul>
-            </div>
-            <div>
-              <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-xl font-semibold">OKB-Hope Project</h3>
-                  <h3 className="text-xl font-semibold">September 2024 - December 2024</h3>
-              </div>
-              <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-400">
-                <li>Developed a web platform that connects 10000+ of Ghanaians to vital mental health resources.</li>
-                <li>
-                  Implemented user-friendly interfaces for the Discover and Psychiatrists pages using Node.js and
-                  HTML/CSS.
-                </li>
-                <li>
-                  Constructed and tested multi-file upload and storage features by integrating Firebase with the Next.js
-                  frontend.
-                </li>
-                <li>Worked closely with UX designers to implement responsive and accessible user interfaces.</li>
-                <li>Documented code and created technical guides for future maintenance and feature development.</li>
-              </ul>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="outline">Next.js</Badge>
-              <Badge variant="outline">Node.js</Badge>
-              <Badge variant="outline">Express.js</Badge>
-              <Badge variant="outline">Supabase</Badge>
-              <Badge variant="outline">PostgreSQL</Badge>
-              <Badge variant="outline">Firebase</Badge>
-              <Badge variant="outline">HTML/CSS</Badge>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold tracking-tight">Experience</h1>
+        <p className="mt-2 text-sm text-muted-foreground">Professional history, most recent first.</p>
+      </div>
 
-        {/* Shady Grove Group LLC */}
-        <Card>
-          <CardHeader>
-            <div className="flex justify-between items-start flex-wrap gap-2">
+      <div className="space-y-10">
+        {experiences.map((exp, i) => (
+          <ScrollReveal key={exp.org + exp.period} index={i}>
+            <div>
+              <div className="flex items-start justify-between gap-4 flex-wrap mb-1">
                 <div>
-                <CardTitle className="text-2xl">Shady Grove Group LLC</CardTitle>
-                <CardDescription className="text-lg">Part-Time Intern</CardDescription>
+                  <h3 className="text-sm font-semibold text-foreground">{exp.org}</h3>
+                  <p className="text-xs text-primary mt-0.5">{exp.role}</p>
                 </div>
-                <div className="flex flex-col items-end">
-                <CardTitle className="text-2xl">June 2021 - June 2023</CardTitle>
+                <div className="text-right shrink-0">
+                  <span className="text-xs text-muted-foreground font-mono">{exp.period}</span>
+                  {exp.location && (
+                    <p className="text-xs text-muted-foreground mt-0.5">{exp.location}</p>
+                  )}
+                  {exp.incoming && (
+                    <Badge variant="secondary" className="text-xs mt-1">Incoming</Badge>
+                  )}
                 </div>
+              </div>
+
+              {exp.incoming && (
+                <p className="text-xs text-muted-foreground italic mt-2">
+                  Bullets coming after the internship — check back in August 2026.
+                </p>
+              )}
+
+              {exp.subRoles?.map((sub) => (
+                <div key={sub.title} className="mt-3">
+                  <div className="flex justify-between items-center mb-2">
+                    <p className="text-xs font-medium text-foreground/80">{sub.title}</p>
+                    <span className="text-xs text-muted-foreground font-mono">{sub.period}</span>
+                  </div>
+                  <ul className="space-y-1.5">
+                    {sub.bullets.map((b) => (
+                      <li key={b} className="text-xs text-muted-foreground leading-relaxed flex gap-2">
+                        <span className="text-primary mt-1 shrink-0">▸</span>
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+
+              {exp.bullets && exp.bullets.length > 0 && (
+                <ul className="mt-2 space-y-1.5">
+                  {exp.bullets.map((b) => (
+                    <li key={b} className="text-xs text-muted-foreground leading-relaxed flex gap-2">
+                      <span className="text-primary mt-1 shrink-0">▸</span>
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {exp.tags.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {exp.tags.map((t) => (
+                    <Badge key={t} variant="secondary" className="text-xs px-2 py-0.5">{t}</Badge>
+                  ))}
+                </div>
+              )}
             </div>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-400">
-              <li>
-                Contributed to an LMS that is used by 100+ at the company and in Florida University Southeast (FUSE).
-              </li>
-              <li>
-                Utilized Flutter for frontend and Firebase for the deployment, while using an Agile development
-                framework.
-              </li>
-              <li>
-                Optimized platform functionality through testing and key document uploads, enhancing usability and
-                reliability.
-              </li>
-              <li>
-                Participated in sprint planning and retrospective meetings as part of the Agile development process.
-              </li>
-              <li>Collaborated with senior developers to implement new features and fix bugs in the application.</li>
-            </ul>
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="outline">Flutter</Badge>
-              <Badge variant="outline">Firebase</Badge>
-              <Badge variant="outline">Agile</Badge>
-              <Badge variant="outline">LMS</Badge>
-            </div>
-          </CardContent>
-        </Card>
+            {i < experiences.length - 1 && (
+              <div className="mt-8 border-t border-border/40" />
+            )}
+          </ScrollReveal>
+        ))}
       </div>
     </PageShell>
   )

@@ -3,13 +3,15 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Github, Linkedin, Menu, X } from "lucide-react"
+import { Github, Linkedin, Menu, Moon, Sun, X } from "lucide-react"
+import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 export default function MainNav() {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { theme, setTheme } = useTheme()
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen)
@@ -58,6 +60,15 @@ export default function MainNav() {
           {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
         <div className="hidden md:flex items-center gap-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Toggle theme"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          </Button>
           <Button variant="ghost" size="sm" asChild className="gap-2">
             <Link href="https://github.com/nathnael45" target="_blank" rel="noopener noreferrer">
               <Github className="h-4 w-4" /> GitHub
@@ -95,6 +106,16 @@ export default function MainNav() {
               </Link>
             ))}
             <div className="flex flex-col gap-2 pt-2 border-t dark:border-gray-800">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="justify-start gap-2"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              >
+                <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                Toggle theme
+              </Button>
               <Button variant="ghost" size="sm" asChild className="justify-start gap-2">
                 <Link href="https://github.com/nathnael45" target="_blank" rel="noopener noreferrer">
                   <Github className="h-4 w-4" /> GitHub

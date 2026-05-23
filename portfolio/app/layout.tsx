@@ -1,14 +1,12 @@
 import type React from "react"
 import "@/app/globals.css"
-import { Inter } from "next/font/google"
+import { GeistSans } from "geist/font/sans"
 import { ThemeProvider } from "@/components/theme-provider"
 
-const inter = Inter({ subsets: ["latin"] })
-
 export const metadata = {
-  title: "Nathnael Tesfaw - Portfolio",
-  description: "Computer Science student at Cornell University passionate about technology and software engineering.",
-    generator: 'v0.dev',
+  title: "Nathnael Tesfaw",
+  description:
+    "Cornell CS senior focused on full-stack engineering, distributed systems, and ML/AI. Incoming SWE Intern at Workday.",
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
@@ -16,15 +14,11 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+    <html lang="en" suppressHydrationWarning className={GeistSans.variable}>
+      <body className={`${GeistSans.className} antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
       </body>
