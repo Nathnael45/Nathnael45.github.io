@@ -140,6 +140,7 @@ export const projects: Project[] = [
       "Owned level design end-to-end",
     ],
     tags: ["Java", "LibGDX"],
+    demoUrl: "https://gdiac.cs.cornell.edu/gdiac/showcase/games/tower_of_the_tail/",
     image: "/prev.png",
   },
   {
@@ -155,6 +156,7 @@ export const projects: Project[] = [
       "Evaluated subject and prompt fidelity using CLIP-I, DINO, and CLIP-T metrics, reproducing the paper's finding that full fine-tuning outperforms LoRA on identity preservation.",
     ],
     tags: ["PyTorch", "Diffusers", "HuggingFace", "Python"],
+    githubUrl: "https://github.com/Anthony-PB/cs4782finalDream",
     image: "/placeholder.jpg",
   },
   {
@@ -172,6 +174,23 @@ export const projects: Project[] = [
       "pickups_per_1000_riders normalization to surface true last-mile hotspots beyond raw station busyness",
     ],
     tags: ["Python", "Pandas", "NumPy", "SciPy", "GIS", "Tableau", "Monte Carlo", "SQL"],
+    image: "/placeholder.jpg",
+  },
+  // ── Fall 2025 ────────────────────────────────────────────────────────────────
+  {
+    id: "nbody-simulation",
+    title: "3D N-Body Gravity Simulation",
+    period: "Fall 2025 · CS 3110",
+    description: "Modular n-body physics engine in OCaml with an interactive 3D visualization",
+    detail:
+      "Built a modular n-body physics engine in OCaml using functional programming, implementing gravitational dynamics, collision detection, and state management across 7+ modules, validated with 40+ OUnit tests. Developed an interactive 3D visualization system with orbital trails, dynamic camera controls, and live parameter editing; implemented quadratic-time collision detection across multiple astronomical scenarios.",
+    features: [
+      "Modular OCaml engine with gravitational dynamics, collision detection, and state management across 7+ modules.",
+      "Validated correctness with 40+ OUnit tests covering edge cases across multiple astronomical scenarios.",
+      "Interactive 3D visualization with orbital trails, dynamic camera controls, and live parameter editing via Raylib.",
+    ],
+    tags: ["OCaml", "Raylib", "OUnit", "Functional Programming"],
+    githubUrl: "https://github.com/Anthony-PB/CS3110MP",
     image: "/placeholder.jpg",
   },
   // ── Spring 2025 ──────────────────────────────────────────────────────────────

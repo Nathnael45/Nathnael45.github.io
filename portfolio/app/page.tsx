@@ -2,8 +2,9 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { motion } from "framer-motion"
-import { Github, Linkedin, Mail, FileText, ExternalLink, Code, ArrowRight, Play } from "lucide-react"
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Github, Linkedin, Mail, FileText, ExternalLink, Code, ArrowRight, Play, ChevronDown } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/scroll-reveal"
@@ -39,6 +40,8 @@ function SectionLabel({ number, title }: { number: string; title: string }) {
 
 export default function Home() {
   const activeSection = useActiveSection(SECTIONS)
+  const [expandedProject, setExpandedProject] = useState<string | null>(null)
+  const [expandedExperience, setExpandedExperience] = useState<string | null>(null)
 
   return (
     <div className="min-h-screen bg-background">
@@ -201,73 +204,104 @@ export default function Home() {
           {/* ── Experience ────────────────────────────────────── */}
           <section id="experience" className="pt-24">
             <SectionLabel number="02" title="Experience" />
-            <div className="space-y-10">
-              {experiences.map((exp, i) => (
-                <ScrollReveal key={exp.org + exp.period} index={i}>
-                  <div className="group">
-                    <div className="flex items-start justify-between gap-4 flex-wrap mb-1">
-                      <div>
-                        <h3 className="text-sm font-semibold text-foreground">{exp.org}</h3>
-                        <p className="text-xs text-primary mt-0.5">{exp.role}</p>
-                      </div>
-                      <div className="text-right shrink-0">
-                        <span className="text-xs text-muted-foreground font-mono">{exp.period}</span>
-                        {exp.location && (
-                          <p className="text-xs text-muted-foreground mt-0.5">{exp.location}</p>
-                        )}
-                        {exp.incoming && (
-                          <Badge variant="secondary" className="text-xs mt-1">Incoming</Badge>
-                        )}
-                      </div>
-                    </div>
-
-                    {exp.incoming && (
-                      <p className="text-xs text-muted-foreground italic mt-2">
-                        Bullets coming after the internship — check back in August 2026.
-                      </p>
-                    )}
-
-                    {exp.subRoles && exp.subRoles.map((sub) => (
-                      <div key={sub.title} className="mt-3">
-                        <div className="flex justify-between items-center mb-2">
-                          <p className="text-xs font-medium text-foreground/80">{sub.title}</p>
-                          <span className="text-xs text-muted-foreground font-mono">{sub.period}</span>
+            <div className="space-y-2">
+              {experiences.map((exp, i) => {
+                const key = exp.org + exp.period
+                const isOpen = expandedExperience === key
+                const hasDetail = exp.incoming || (exp.bullets && exp.bullets.length > 0) || !!exp.subRoles
+                return (
+                  <ScrollReveal key={key} index={i}>
+                    <div
+                      className={`rounded-lg border border-border bg-card/50 px-5 py-4 transition-all duration-200 group ${hasDetail ? "cursor-pointer hover:border-primary/50 hover:bg-card" : ""}`}
+                      onClick={() => hasDetail && setExpandedExperience(isOpen ? null : key)}
+                    >
+                      <div className="flex items-start justify-between gap-4 flex-wrap">
+                        <div>
+                          <h3 className="text-sm font-semibold text-foreground">{exp.org}</h3>
+                          <p className="text-xs text-primary mt-0.5">{exp.role}</p>
                         </div>
-                        <ul className="space-y-1.5">
-                          {sub.bullets.map((b) => (
-                            <li key={b} className="text-xs text-muted-foreground leading-relaxed flex gap-2">
-                              <span className="text-primary mt-1 shrink-0">▸</span>
-                              {b}
-                            </li>
+                        <div className="flex items-center gap-1 shrink-0">
+                          <div className="text-right">
+                            <span className="text-xs text-muted-foreground font-mono">{exp.period}</span>
+                            {exp.location && (
+                              <p className="text-xs text-muted-foreground mt-0.5">{exp.location}</p>
+                            )}
+                            {exp.incoming && (
+                              <Badge variant="secondary" className="text-xs mt-1">Incoming</Badge>
+                            )}
+                          </div>
+                          {hasDetail && (
+                            <motion.div
+                              animate={{ rotate: isOpen ? 180 : 0 }}
+                              transition={{ duration: 0.2, ease: "easeOut" }}
+                              className="p-1.5 text-muted-foreground ml-1"
+                            >
+                              <ChevronDown className="h-3.5 w-3.5" />
+                            </motion.div>
+                          )}
+                        </div>
+                      </div>
+
+                      {exp.tags.length > 0 && (
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {exp.tags.map((t) => (
+                            <Badge key={t} variant="secondary" className="text-xs px-2 py-0.5">{t}</Badge>
                           ))}
-                        </ul>
-                      </div>
-                    ))}
+                        </div>
+                      )}
 
-                    {exp.bullets && exp.bullets.length > 0 && (
-                      <ul className="mt-2 space-y-1.5">
-                        {exp.bullets.map((b) => (
-                          <li key={b} className="text-xs text-muted-foreground leading-relaxed flex gap-2">
-                            <span className="text-primary mt-1 shrink-0">▸</span>
-                            {b}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                      <AnimatePresence initial={false}>
+                        {isOpen && (
+                          <motion.div
+                            key="exp-detail"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: "easeOut" }}
+                            className="overflow-hidden"
+                          >
+                            <div className="mt-4 pt-4 border-t border-border/40 space-y-3">
+                              {exp.incoming && (
+                                <p className="text-xs text-muted-foreground italic">
+                                  Bullets coming after the internship — check back in August 2026.
+                                </p>
+                              )}
 
-                    {exp.tags.length > 0 && (
-                      <div className="mt-3 flex flex-wrap gap-1.5">
-                        {exp.tags.map((t) => (
-                          <Badge key={t} variant="secondary" className="text-xs px-2 py-0.5">{t}</Badge>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  {i < experiences.length - 1 && (
-                    <div className="mt-8 border-t border-border/40" />
-                  )}
-                </ScrollReveal>
-              ))}
+                              {exp.subRoles && exp.subRoles.map((sub) => (
+                                <div key={sub.title}>
+                                  <div className="flex justify-between items-center mb-2">
+                                    <p className="text-xs font-medium text-foreground/80">{sub.title}</p>
+                                    <span className="text-xs text-muted-foreground font-mono">{sub.period}</span>
+                                  </div>
+                                  <ul className="space-y-1.5">
+                                    {sub.bullets.map((b) => (
+                                      <li key={b} className="text-xs text-muted-foreground leading-relaxed flex gap-2">
+                                        <span className="text-primary mt-1 shrink-0">▸</span>
+                                        {b}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+
+                              {exp.bullets && exp.bullets.length > 0 && (
+                                <ul className="space-y-1.5">
+                                  {exp.bullets.map((b) => (
+                                    <li key={b} className="text-xs text-muted-foreground leading-relaxed flex gap-2">
+                                      <span className="text-primary mt-1 shrink-0">▸</span>
+                                      {b}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </ScrollReveal>
+                )
+              })}
             </div>
           </section>
 
@@ -275,64 +309,105 @@ export default function Home() {
           <section id="projects" className="pt-24">
             <SectionLabel number="03" title="Projects" />
             <div className="space-y-2">
-              {projects.map((project, i) => (
-                <ScrollReveal key={project.id} index={i}>
-                  <div
-                    id={`proj-${project.id}`}
-                    className="rounded-lg border border-border bg-card/50 px-5 py-4 hover:border-primary/50 hover:bg-card transition-all duration-200 group"
-                  >
-                    <div className="flex items-start justify-between gap-3 flex-wrap">
-                      <div className="flex items-baseline gap-2.5 flex-wrap">
-                        <h3 className="text-sm font-semibold text-foreground">{project.title}</h3>
-                        {project.period && (
-                          <span className="text-xs font-mono text-muted-foreground">{project.period}</span>
-                        )}
+              {projects.map((project, i) => {
+                const isOpen = expandedProject === project.id
+                return (
+                  <ScrollReveal key={project.id} index={i}>
+                    <div
+                      id={`proj-${project.id}`}
+                      className="rounded-lg border border-border bg-card/50 px-5 py-4 hover:border-primary/50 hover:bg-card transition-all duration-200 group cursor-pointer"
+                      onClick={() => setExpandedProject(isOpen ? null : project.id)}
+                    >
+                      <div className="flex items-start justify-between gap-3 flex-wrap">
+                        <div className="flex items-baseline gap-2.5 flex-wrap">
+                          <h3 className="text-sm font-semibold text-foreground">{project.title}</h3>
+                          {project.period && (
+                            <span className="text-xs font-mono text-muted-foreground">{project.period}</span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-0.5 shrink-0">
+                          {project.githubUrl && (
+                            <a
+                              href={project.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label="GitHub"
+                              className="p-1.5 text-muted-foreground hover:text-primary transition-colors"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Code className="h-3.5 w-3.5" />
+                            </a>
+                          )}
+                          {project.demoUrl && (
+                            <a
+                              href={project.demoUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label="Demo"
+                              className="p-1.5 text-muted-foreground hover:text-primary transition-colors"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Play className="h-3.5 w-3.5" />
+                            </a>
+                          )}
+                          {project.learnMoreUrl && (
+                            <a
+                              href={project.learnMoreUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label="Learn more"
+                              className="p-1.5 text-muted-foreground hover:text-primary transition-colors"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <ExternalLink className="h-3.5 w-3.5" />
+                            </a>
+                          )}
+                          <motion.div
+                            animate={{ rotate: isOpen ? 180 : 0 }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="p-1.5 text-muted-foreground"
+                          >
+                            <ChevronDown className="h-3.5 w-3.5" />
+                          </motion.div>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-0.5 shrink-0">
-                        {project.githubUrl && (
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="GitHub"
-                            className="p-1.5 text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <Code className="h-3.5 w-3.5" />
-                          </a>
-                        )}
-                        {project.demoUrl && (
-                          <a
-                            href={project.demoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Demo"
-                            className="p-1.5 text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <Play className="h-3.5 w-3.5" />
-                          </a>
-                        )}
-                        {project.learnMoreUrl && (
-                          <a
-                            href={project.learnMoreUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Learn more"
-                            className="p-1.5 text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <ExternalLink className="h-3.5 w-3.5" />
-                          </a>
-                        )}
+                      <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{project.description}</p>
+                      <div className="mt-2.5 flex flex-wrap gap-1.5">
+                        {project.tags.map((t) => (
+                          <Badge key={t} variant="secondary" className="text-xs px-1.5 py-0">{t}</Badge>
+                        ))}
                       </div>
+
+                      <AnimatePresence initial={false}>
+                        {isOpen && (
+                          <motion.div
+                            key="detail"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: "easeOut" }}
+                            className="overflow-hidden"
+                          >
+                            <div className="mt-4 pt-4 border-t border-border/40 space-y-3">
+                              <p className="text-xs text-muted-foreground leading-relaxed">{project.detail}</p>
+                              {project.features.length > 0 && (
+                                <ul className="space-y-1.5">
+                                  {project.features.map((f) => (
+                                    <li key={f} className="text-xs text-muted-foreground leading-relaxed flex gap-2">
+                                      <span className="text-primary mt-0.5 shrink-0">▸</span>
+                                      {f}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{project.description}</p>
-                    <div className="mt-2.5 flex flex-wrap gap-1.5">
-                      {project.tags.map((t) => (
-                        <Badge key={t} variant="secondary" className="text-xs px-1.5 py-0">{t}</Badge>
-                      ))}
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
+                  </ScrollReveal>
+                )
+              })}
             </div>
           </section>
 
