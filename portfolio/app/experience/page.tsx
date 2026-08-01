@@ -25,17 +25,8 @@ export default function ExperiencePage() {
                   {exp.location && (
                     <p className="text-xs text-muted-foreground mt-0.5">{exp.location}</p>
                   )}
-                  {exp.incoming && (
-                    <Badge variant="secondary" className="text-xs mt-1">Incoming</Badge>
-                  )}
                 </div>
               </div>
-
-              {exp.incoming && (
-                <p className="text-xs text-muted-foreground italic mt-2">
-                  Bullets coming after the internship — check back in August 2026.
-                </p>
-              )}
 
               {exp.subRoles?.map((sub) => (
                 <div key={sub.title} className="mt-3">
