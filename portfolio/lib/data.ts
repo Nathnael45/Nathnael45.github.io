@@ -6,7 +6,6 @@ export type Experience = {
   subRoles?: { title: string; period: string; bullets: string[] }[]
   bullets?: string[]
   tags: string[]
-  incoming?: boolean
 }
 
 export type Project = {
@@ -35,31 +34,35 @@ export const experiences: Experience[] = [
   {
     org: "Workday",
     role: "Software Engineer Intern",
-    period: "May – Aug 2026",
+    period: "May 2026 – Present",
     location: "Pleasanton, CA",
-    bullets: [],
-    tags: [],
-    incoming: true,
+    bullets: [
+      "Led a solo proof of concept adopting GUAC for vulnerability blame assignment across Workday's containers, approved by leadership for phased fleet-wide rollout.",
+      "Designed the architecture to pin each vulnerability to its owning team: cross-referencing SARIF scan findings against GUAC's dependency graph and a package-ownership database.",
+      "Built a full-stack visualization tool to demo the POC: explores GUAC's dependency graph and, per package, separates its native vulnerabilities from those inherited through its dependencies.",
+      "Deploying Build Doctor to production, a Python tool that fixes broken builds blocking security scans — 41/41 repos diagnosed with zero misses, expected to cut Snyk's build failure rate from 30% to 10%.",
+    ],
+    tags: ["Python", "GUAC", "SARIF", "Docker", "Snyk"],
   },
   {
     org: "Carnegie Mellon University",
     role: "Software Engineering Intern",
     period: "May – Aug 2025",
+    location: "Pittsburgh, PA",
     bullets: [
-      "Engineered a GPT-4–powered cybersecurity extension that proactively guided users toward secure behaviors, addressing human-error risks responsible for ~90% of reported security incidents.",
+      "Engineered a GPT-4–powered cybersecurity extension that guides users toward secure behaviors, presented to hundreds of Pennsylvania state government representatives.",
       "Designed large-scale data processing pipelines in Python (NumPy) to analyze 6,000+ LLM outputs, improving response actionability by 50% through prompt iteration and scoring.",
-      "Deployed a production backend on AWS EC2 via an HTTPS Nginx API gateway and DuckDNS reverse proxy, ensuring end-to-end encryption, data integrity, and reliable low-latency interactions across all requests.",
     ],
-    tags: ["Python", "NumPy", "GPT-4", "AWS EC2", "Nginx", "DuckDNS"],
+    tags: ["Python", "NumPy", "GPT-4"],
   },
   {
     org: "Rethink Food @ Hack4Impact Cornell",
     role: "Lead Software Developer",
     period: "Aug – Dec 2025",
+    location: "Ithaca, NY",
     bullets: [
       "Led a team of 7 developers and designers to deliver a production web application from requirements through deployment for a nonprofit combating food insecurity across New York City.",
       "Built an interactive data visualization platform using Mapbox to display data from 10,000+ restaurants and community organizations, improving transparency and donor engagement.",
-      "Drove technical scoping and onboarding processes for 100+ applicants, improving recruitment efficiency.",
     ],
     tags: ["Next.js", "Mapbox", "Node.js", "TypeScript"],
   },
@@ -115,15 +118,16 @@ export const projects: Project[] = [
   {
     id: "devaudit",
     title: "DevAudit",
-    period: "Jan – Apr 2026",
-    description: "Autonomous AI security auditing agent for GitHub repositories",
+    period: "Jan 2026 – Present",
+    description: "Full-stack AI security-auditing agent for GitHub repositories",
     detail:
-      "DevAudit clones GitHub repos and runs Semgrep, Bandit, and Gitleaks scanners in parallel, streaming live AI reasoning over WebSocket. A distributed pipeline built with BullMQ + Redis job queue, Express REST API, and a decoupled worker process — deployed via Docker Compose on AWS EC2 with non-root containers and per-IP rate limiting.",
+      "DevAudit clones a GitHub repo and runs Semgrep, Bandit, and Gitleaks in parallel, streaming Claude's live reasoning and triaged findings to the browser as it works. Backed by 88 automated tests (Vitest, run against a real Postgres) across API, worker, and frontend, wired into a GitHub Actions pipeline that runs lint, typecheck, and the full suite on every push.",
     features: [
-      "Built an autonomous AI security auditing agent that clones GitHub repositories, runs 3 static analysis tools in parallel (Semgrep, Bandit, Gitleaks), and streams live AI reasoning to the browser over WebSocket.",
-      "Designed a distributed pipeline with BullMQ + Redis job queue, Express REST API, and a decoupled worker process; deployed via Docker Compose on AWS EC2 with non-root containers and per-IP rate limiting.",
+      "Built a full-stack AI security-auditing agent that clones a GitHub repo, runs Semgrep, Bandit, and Gitleaks in parallel, and streams Claude's live reasoning and triaged findings to the browser as it works.",
+      "Wrote 88 automated tests (Vitest, run against a real Postgres) across API, worker, and frontend, wired into a GitHub Actions pipeline that runs lint, typecheck, and the full suite on every push.",
+      "Root-caused production bugs through controlled experiments: traced a silent Semgrep timeout to AWS burstable-CPU throttling, and a truncated AI response to an undersized max_tokens.",
     ],
-    tags: ["TypeScript", "Next.js", "Node.js", "PostgreSQL", "Redis", "Docker", "AWS"],
+    tags: ["TypeScript", "Next.js", "Node.js", "Claude API", "PostgreSQL", "Redis", "Docker", "AWS"],
     githubUrl: "https://github.com/Nathnael45/DevAudit",
     image: "/placeholder.jpg",
   },
@@ -149,13 +153,12 @@ export const projects: Project[] = [
     period: "Spring 2026 · CS 4782",
     description: "From-scratch re-implementation of DreamBooth fine-tuning for Stable Diffusion",
     detail:
-      "Re-implemented DreamBooth (Ruiz et al. 2023) from scratch — fine-tunes Stable Diffusion v1.5 from 3–5 reference photos using full UNet fine-tuning and LoRA variants with prior-preservation loss. Achieved CLIP-T of 0.30 vs. the paper's 0.305. Key finding: full fine-tuning outperforms LoRA on identity preservation.",
+      "Re-implemented DreamBooth (Ruiz et al. 2023) from scratch — fine-tunes Stable Diffusion v1.5 from 3–5 reference photos using full UNet fine-tuning and LoRA variants with prior-preservation loss. Achieved CLIP-T of 0.30 vs. the paper's 0.305.",
     features: [
       "Re-implemented DreamBooth (Ruiz et al. 2023) from scratch, fine-tuning Stable Diffusion v1.5 for subject-driven image generation from as few as 3–5 reference photos.",
-      "Built full UNet fine-tuning and LoRA variants with prior-preservation loss, achieving CLIP-T prompt fidelity of 0.30, matching the original paper's reported result of 0.305.",
-      "Evaluated subject and prompt fidelity using CLIP-I, DINO, and CLIP-T metrics, reproducing the paper's finding that full fine-tuning outperforms LoRA on identity preservation.",
+      "Built full UNet fine-tuning and LoRA variants with prior-preservation loss, matching the paper's benchmark for prompt fidelity (CLIP-T 0.30 vs. 0.305 reported).",
     ],
-    tags: ["PyTorch", "Diffusers", "HuggingFace", "Python"],
+    tags: ["PyTorch", "Diffusers", "HuggingFace"],
     githubUrl: "https://github.com/Anthony-PB/cs4782finalDream",
     image: "/placeholder.jpg",
   },
@@ -308,19 +311,19 @@ export const projects: Project[] = [
 export const skillGroups: SkillGroup[] = [
   {
     category: "Languages",
-    skills: ["Python", "Java", "TypeScript", "JavaScript", "C", "Dart", "Verilog", "HTML/CSS", "SQL", "OCaml", "RISC-V Assembly"],
+    skills: ["Python", "Java", "TypeScript", "C", "SQL", "Bash", "HTML/CSS"],
   },
   {
     category: "Frameworks",
-    skills: ["React.js", "Next.js", "Node.js", "Express.js", "Flask", "Flutter", "NumPy", "Pandas", "Mapbox", "Tailwind CSS"],
+    skills: ["React.js", "Next.js", "Node.js", "Express.js", "Flask", "PyTorch", "NumPy", "Pandas"],
   },
   {
     category: "Databases & Cloud",
-    skills: ["AWS (EC2)", "PostgreSQL", "MongoDB", "Firebase", "Supabase", "Google Cloud Platform", "Microsoft Azure"],
+    skills: ["AWS", "Google Cloud Platform", "PostgreSQL", "Redis", "MongoDB", "Supabase"],
   },
   {
     category: "Tools",
-    skills: ["Docker", "Git", "Nginx", "DuckDNS", "Heroku", "Vercel", "Linux"],
+    skills: ["Docker", "Git", "GitHub Actions", "Nginx", "Linux", "Vercel"],
   },
 ]
 

@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -8,8 +7,9 @@ import { Github, Linkedin, Mail, FileText, ExternalLink, Code, ArrowRight, Play,
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { ProfilePhoto } from "@/components/profile-photo"
 import { useActiveSection } from "@/hooks/use-active-section"
-import { experiences, projects, skillGroups, coursework } from "@/lib/data"
+import { experiences, projects, featuredProjectIds, skillGroups, coursework } from "@/lib/data"
 
 const SECTIONS = ["about", "experience", "projects", "skills", "education"]
 
@@ -28,10 +28,9 @@ const SOCIALS = [
   { href: "/resume.pdf",                               icon: FileText, label: "Resume" },
 ]
 
-function SectionLabel({ number, title }: { number: string; title: string }) {
+function SectionLabel({ title }: { title: string }) {
   return (
     <div className="flex items-center gap-3 mb-8">
-      <span className="font-mono text-xs text-primary">{number}</span>
       <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium">{title}</span>
       <div className="flex-1 h-px bg-border" />
     </div>
@@ -42,6 +41,8 @@ export default function Home() {
   const activeSection = useActiveSection(SECTIONS)
   const [expandedProject, setExpandedProject] = useState<string | null>(null)
   const [expandedExperience, setExpandedExperience] = useState<string | null>(null)
+  const featuredProjects = projects.filter((p) => featuredProjectIds.includes(p.id))
+  const moreProjects = projects.filter((p) => !featuredProjectIds.includes(p.id))
 
   return (
     <div className="min-h-screen bg-background">
@@ -65,30 +66,24 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="lg:flex">
+      <div className="lg:flex lg:max-w-[1600px] lg:mx-auto">
         {/* ── Sidebar (desktop) ─────────────────────────────────── */}
-        <aside className="hidden lg:flex lg:fixed lg:top-0 lg:left-0 lg:h-screen lg:w-[44%] lg:flex-col lg:justify-between lg:px-16 lg:py-20 xl:px-24">
+        <aside className="hidden lg:flex lg:sticky lg:top-0 lg:h-screen lg:w-[44%] lg:shrink-0 lg:flex-col lg:justify-between lg:overflow-y-auto lg:px-16 lg:py-14 xl:px-24">
           {/* Top: identity */}
-          <div className="space-y-10">
+          <div className="space-y-8">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <div className="relative w-20 h-20 rounded-full overflow-hidden border border-border mb-6">
-                <Image
-                  src="/mepicture.jpg"
-                  alt="Nathnael Tesfaw"
-                  fill
-                  className="object-cover"
-                  priority
-                />
+              <div className="mb-6">
+                <ProfilePhoto src="/mepicture.jpg" alt="Nathnael Tesfaw" />
               </div>
-              <h1 className="text-4xl font-bold tracking-tight text-foreground">
+              <h1 className="text-5xl font-serif font-medium tracking-tight text-foreground">
                 Nathnael Tesfaw
               </h1>
               <p className="mt-3 text-base font-medium text-foreground/80">
-                CS @ Cornell · Incoming SWE @ Workday
+                CS @ Cornell · SWE Intern @ Workday
               </p>
               <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xs">
                   Computer Science student interested in ML systems, distributed infrastructure, and full-stack engineering.              </p>
@@ -147,19 +142,18 @@ export default function Home() {
         </aside>
 
         {/* ── Main content ──────────────────────────────────────── */}
-        <main className="lg:ml-[44%] lg:w-[56%] px-6 md:px-10 lg:px-16 xl:px-20 pb-32">
+        <main className="lg:w-[56%] px-6 md:px-10 lg:px-16 xl:px-20 pb-32">
 
           {/* ── About ─────────────────────────────────────────── */}
           <section id="about" className="pt-20 lg:pt-24">
-            <SectionLabel number="01" title="About" />
+            <SectionLabel title="About" />
             <ScrollReveal>
               <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
                 <p>
                   I'm a Computer Science senior at Cornell University (College of Engineering),
                   graduating May 2027, with a Minor in Artificial Intelligence. My focus is full-stack
                   engineering, distributed systems, and ML/AI — and I have a strong bias toward shipping
-                  real products. Everything in this portfolio has been deployed or benchmarked against a
-                  real paper.
+                  real products.
                 </p>
                 <p>
                   This summer I'm a Software Engineer Intern at{" "}
@@ -203,21 +197,22 @@ export default function Home() {
 
           {/* ── Experience ────────────────────────────────────── */}
           <section id="experience" className="pt-24">
-            <SectionLabel number="02" title="Experience" />
+            <SectionLabel title="Experience" />
             <div className="space-y-2">
               {experiences.map((exp, i) => {
                 const key = exp.org + exp.period
                 const isOpen = expandedExperience === key
-                const hasDetail = exp.incoming || (exp.bullets && exp.bullets.length > 0) || !!exp.subRoles
+                const hasDetail = (exp.bullets && exp.bullets.length > 0) || !!exp.subRoles
                 return (
                   <ScrollReveal key={key} index={i}>
                     <div
-                      className={`rounded-lg border border-border bg-card/50 px-5 py-4 transition-all duration-200 group ${hasDetail ? "cursor-pointer hover:border-primary/50 hover:bg-card" : ""}`}
+                      className={`relative overflow-hidden rounded-lg border border-border bg-card/50 px-5 py-4 transition-all duration-200 group ${hasDetail ? "cursor-pointer hover:border-primary/50 hover:bg-card" : ""}`}
                       onClick={() => hasDetail && setExpandedExperience(isOpen ? null : key)}
                     >
+                      <div className="pointer-events-none absolute inset-y-0 left-0 w-[3px] origin-center scale-y-0 bg-gradient-to-b from-primary to-neutral-800 transition-transform duration-300 ease-out group-hover:scale-y-100" />
                       <div className="flex items-start justify-between gap-4 flex-wrap">
                         <div>
-                          <h3 className="text-sm font-semibold text-foreground">{exp.org}</h3>
+                          <h3 className="text-lg font-serif font-medium tracking-tight text-foreground">{exp.org}</h3>
                           <p className="text-xs text-primary mt-0.5">{exp.role}</p>
                         </div>
                         <div className="flex items-center gap-1 shrink-0">
@@ -225,9 +220,6 @@ export default function Home() {
                             <span className="text-xs text-muted-foreground font-mono">{exp.period}</span>
                             {exp.location && (
                               <p className="text-xs text-muted-foreground mt-0.5">{exp.location}</p>
-                            )}
-                            {exp.incoming && (
-                              <Badge variant="secondary" className="text-xs mt-1">Incoming</Badge>
                             )}
                           </div>
                           {hasDetail && (
@@ -261,12 +253,6 @@ export default function Home() {
                             className="overflow-hidden"
                           >
                             <div className="mt-4 pt-4 border-t border-border/40 space-y-3">
-                              {exp.incoming && (
-                                <p className="text-xs text-muted-foreground italic">
-                                  Bullets coming after the internship — check back in August 2026.
-                                </p>
-                              )}
-
                               {exp.subRoles && exp.subRoles.map((sub) => (
                                 <div key={sub.title}>
                                   <div className="flex justify-between items-center mb-2">
@@ -307,20 +293,22 @@ export default function Home() {
 
           {/* ── Projects ──────────────────────────────────────── */}
           <section id="projects" className="pt-24">
-            <SectionLabel number="03" title="Projects" />
+            <SectionLabel title="Projects" />
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Featured</p>
             <div className="space-y-2">
-              {projects.map((project, i) => {
+              {featuredProjects.map((project, i) => {
                 const isOpen = expandedProject === project.id
                 return (
                   <ScrollReveal key={project.id} index={i}>
                     <div
                       id={`proj-${project.id}`}
-                      className="rounded-lg border border-border bg-card/50 px-5 py-4 hover:border-primary/50 hover:bg-card transition-all duration-200 group cursor-pointer"
+                      className="relative overflow-hidden rounded-lg border border-border bg-card/50 px-5 py-4 hover:border-primary/50 hover:bg-card transition-all duration-200 group cursor-pointer"
                       onClick={() => setExpandedProject(isOpen ? null : project.id)}
                     >
+                      <div className="pointer-events-none absolute inset-y-0 left-0 w-[3px] origin-center scale-y-0 bg-gradient-to-b from-primary to-neutral-800 transition-transform duration-300 ease-out group-hover:scale-y-100" />
                       <div className="flex items-start justify-between gap-3 flex-wrap">
                         <div className="flex items-baseline gap-2.5 flex-wrap">
-                          <h3 className="text-sm font-semibold text-foreground">{project.title}</h3>
+                          <h3 className="text-lg font-serif font-medium tracking-tight text-foreground">{project.title}</h3>
                           {project.period && (
                             <span className="text-xs font-mono text-muted-foreground">{project.period}</span>
                           )}
@@ -409,11 +397,74 @@ export default function Home() {
                 )
               })}
             </div>
+
+            {moreProjects.length > 0 && (
+              <ScrollReveal index={featuredProjects.length}>
+                <div className="mt-10">
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">More Projects</p>
+                  <div className="divide-y divide-border/40">
+                    {moreProjects.map((project) => (
+                      <div key={project.id} className="py-3">
+                        <div className="flex items-baseline justify-between gap-3 flex-wrap">
+                          <div className="flex items-baseline gap-2 min-w-0">
+                            <h4 className="text-sm font-serif font-medium text-foreground shrink-0">{project.title}</h4>
+                            {project.period && (
+                              <span className="text-xs font-mono text-muted-foreground shrink-0">{project.period}</span>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-0.5 shrink-0">
+                            {project.githubUrl && (
+                              <a
+                                href={project.githubUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="GitHub"
+                                className="p-1 text-muted-foreground hover:text-primary transition-colors"
+                              >
+                                <Code className="h-3.5 w-3.5" />
+                              </a>
+                            )}
+                            {project.demoUrl && (
+                              <a
+                                href={project.demoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Demo"
+                                className="p-1 text-muted-foreground hover:text-primary transition-colors"
+                              >
+                                <Play className="h-3.5 w-3.5" />
+                              </a>
+                            )}
+                            {project.learnMoreUrl && (
+                              <a
+                                href={project.learnMoreUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Learn more"
+                                className="p-1 text-muted-foreground hover:text-primary transition-colors"
+                              >
+                                <ExternalLink className="h-3.5 w-3.5" />
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                        <p className="mt-0.5 text-xs text-muted-foreground leading-relaxed">{project.description}</p>
+                        <div className="mt-1.5 flex flex-wrap gap-1.5">
+                          {project.tags.map((t) => (
+                            <Badge key={t} variant="secondary" className="text-xs px-1.5 py-0">{t}</Badge>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </ScrollReveal>
+            )}
           </section>
 
           {/* ── Skills ────────────────────────────────────────── */}
           <section id="skills" className="pt-24">
-            <SectionLabel number="04" title="Skills" />
+            <SectionLabel title="Skills" />
             <div className="space-y-6">
               {skillGroups.map((group, i) => (
                 <ScrollReveal key={group.category} index={i}>
@@ -432,12 +483,12 @@ export default function Home() {
 
           {/* ── Education ─────────────────────────────────────── */}
           <section id="education" className="pt-24">
-            <SectionLabel number="05" title="Education" />
+            <SectionLabel title="Education" />
             <ScrollReveal>
               <div className="space-y-4">
                 <div className="flex items-start justify-between gap-4 flex-wrap">
                   <div>
-                    <h3 className="text-sm font-semibold text-foreground">Cornell University</h3>
+                    <h3 className="text-lg font-serif font-medium tracking-tight text-foreground">Cornell University</h3>
                     <p className="text-xs text-primary mt-0.5">B.S. Computer Science · Minor in Artificial Intelligence</p>
                     <p className="text-xs text-muted-foreground mt-0.5">College of Engineering · GPA 3.5</p>
                   </div>
@@ -477,7 +528,15 @@ export default function Home() {
           <footer className="border-t border-border pt-6 mt-4">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <p className="text-xs text-muted-foreground">
-                © {new Date().getFullYear()} Nathnael Tesfaw
+                © {new Date().getFullYear()} Nathnael Tesfaw · Design inspired by{" "}
+                <a
+                  href="https://brittanychiang.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors underline underline-offset-2"
+                >
+                  brittanychiang.com
+                </a>
               </p>
               <div className="flex items-center gap-4">
                 {SOCIALS.map(({ href, icon: Icon, label }) => (
