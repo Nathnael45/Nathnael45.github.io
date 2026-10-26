@@ -3,6 +3,7 @@ export type Experience = {
   role: string
   period: string
   location?: string
+  logo?: string
   subRoles?: { title: string; period: string; bullets: string[] }[]
   bullets?: string[]
   tags: string[]
@@ -37,6 +38,7 @@ export const experiences: Experience[] = [
     role: "Software Engineer Intern",
     period: "May – Aug 2026",
     location: "Pleasanton, CA",
+    logo: "/logos/workday.svg",
     bullets: [
       "Architected a vulnerability-ownership system as the sole engineer, integrating GUAC (an open-source dependency graph) with Workday's internal tools, approved by leadership for fleet-wide rollout.",
       "Created a full-stack tool to demo the POC to stakeholders, visualizing the dependency graph and separating each package's own vulnerabilities from inherited ones.",
@@ -49,6 +51,7 @@ export const experiences: Experience[] = [
     role: "Lead Software Developer",
     period: "Aug – Dec 2025",
     location: "Ithaca, NY",
+    logo: "/logos/rethink-food.png",
     bullets: [
       "Led a team of 7 to ship a production web app for a nonprofit fighting food insecurity in New York City.",
       "Built a Mapbox platform mapping food-donation flows across 10,000+ restaurants and community orgs to recruit new donors.",
@@ -60,6 +63,7 @@ export const experiences: Experience[] = [
     role: "Software Engineering Intern",
     period: "May – Aug 2025",
     location: "Pittsburgh, PA",
+    logo: "/logos/cmu.svg",
     bullets: [
       "Engineered a GPT-4–powered browser extension for safer online behavior, presented to hundreds of Pennsylvania state government representatives.",
       "Added survey-driven personalization for the extension and a GPT-4 scoring pipeline to evaluate it, raising response actionability 50% across 6,000+ tests.",
@@ -69,6 +73,7 @@ export const experiences: Experience[] = [
   {
     org: "Hack4Impact Cornell",
     role: "Software Developer",
+    logo: "/logos/hack4impact-cornell.png",
     period: "September 2024 – May 2025",
     subRoles: [
       {

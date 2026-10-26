@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useState, type ReactNode } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { ArrowUp, ArrowUpRight, ChevronDown, FileText, Github, Linkedin, Mail, Play } from "lucide-react"
+import { ArrowUp, ArrowUpRight, Building2, ChevronDown, FileText, Github, Linkedin, Mail, Play } from "lucide-react"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { AccentSquare, CurvedArrow, Scribble } from "@/components/doodles"
@@ -177,6 +177,13 @@ function ExperienceCard({ exp }: { exp: Experience }) {
       <div>
         <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">{exp.period}</p>
         {exp.location && <p className="mt-1 text-xs text-muted-foreground">{exp.location}</p>}
+        <div className="relative mt-5 flex h-36 w-44 items-center">
+          {exp.logo ? (
+            <Image src={exp.logo} alt={`${exp.org} logo`} fill sizes="176px" className="object-contain object-left" />
+          ) : (
+            <Building2 className="mx-auto h-12 w-12 text-muted-foreground" strokeWidth={1.25} />
+          )}
+        </div>
       </div>
       <div>
         <h3 className="text-xl font-bold">{exp.org}</h3>
