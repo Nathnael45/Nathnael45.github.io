@@ -1,81 +1,59 @@
-# [Personal Portfolio Website](https://nathnael45.github.io/)
+# Nathnael Tesfaw — Portfolio
 
-Welcome to my portfolio! Check out my work and latest updates on my personal website.
+My personal portfolio: experience, projects, and education as a CS senior at Cornell.
 
-A modern, responsive portfolio website built with Next.js, React, and Tailwind CSS.
+**Live:** https://portfolio.nathnaeltesfaw.dev/
 
-Link: https://nathnael45.github.io/
+Design credit to [Kushal Patel](https://kushal-patel-portfolio.netlify.app/).
 
-## 🚀 Features
+## Built With
 
-- Responsive design that works on desktop and mobile
-- Dark/Light mode theme switching
-- Smooth page transitions and animations
-- Project showcase with image previews
-- Skills section with categorized badges
-- Contact information and social links
-- Interactive UI components
-- SEO optimized
+- [Next.js 15](https://nextjs.org/) (App Router, static export) + React 18 + TypeScript
+- [Tailwind CSS](https://tailwindcss.com/) with [shadcn/ui](https://ui.shadcn.com/)
+- [Framer Motion](https://www.framer.com/motion/) for scroll reveals and "See more" transitions
+- [next-themes](https://github.com/pacocoursey/next-themes) for light/dark mode
+- [Lucide](https://lucide.dev/) icons
 
-## 🛠️ Built With
+## Running Locally
 
-- [Next.js 14](https://nextjs.org/) - React framework
-- [React 18](https://reactjs.org/) - JavaScript library
-- [Tailwind CSS](https://tailwindcss.com/) - CSS framework
-- [shadcn/ui](https://ui.shadcn.com/) - UI components
-- [Lucide Icons](https://lucide.dev/) - Icon set
-- [next-themes](https://github.com/pacocoursey/next-themes) - Theme management
-
-## 🏃‍♂️ Running Locally
-
-1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/Nathnael45.github.io.git
-cd portfolio
-```
-
-2. Install dependencies:
-```bash
+git clone https://github.com/Nathnael45/Nathnael45.github.io.git
+cd Nathnael45.github.io/portfolio
 npm install
-```
-
-3. Start the development server:
-```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+Then open http://localhost:3000.
 
-## 📁 Project Structure
+## Updating Content
+
+All copy lives in `portfolio/lib/data.ts`, so the page itself never needs editing for content changes:
+
+- **Experience / projects:** edit the `experiences` and `projects` arrays. The first `featuredExperienceCount` experiences and the projects in `featuredProjectIds` show by default; the rest sit behind "See more".
+- **Company logos:** drop the image in `portfolio/public/logos/` and set `logo` on the experience. Use a transparent background so it works in both themes.
+- **Project icons:** mapped by project id in `portfolio/components/project-icon.tsx`.
+- **Resume:** replace `portfolio/public/resume.pdf`.
+- **Theme colors:** CSS variables in `portfolio/app/globals.css`.
+
+## Project Structure
 
 ```
 portfolio/
-├── app/                  # Next.js app directory
-│   ├── about/           # About page
-│   ├── projects/        # Projects page
-│   ├── experience/      # Experience page
-│   └── education/       # Education page
-├── components/          # React components
-│   ├── ui/             # UI components
-│   └── ...             # Other components
-├── public/             # Static assets
-└── styles/             # Global styles
+├── app/
+│   ├── page.tsx        # Homepage (hero, about, experience, projects, contact)
+│   ├── layout.tsx      # Fonts, theme provider, metadata
+│   └── globals.css     # Light/dark color tokens
+├── components/         # Doodles, theme toggle, project icons, shadcn/ui
+├── lib/data.ts         # All site content
+└── public/             # Photo, resume, logos, CNAME
 ```
 
-## 🎨 Customization
+## Deployment
 
-1. Update the personal information in `app/page.tsx`
-2. Modify the theme colors in `app/globals.css`
-3. Add your projects in `app/projects/page.tsx`
-4. Update the experience section in `app/experience/page.tsx`
-5. Modify the education details in `app/education/page.tsx`
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the static site and publishes `portfolio/out` to the `gh-pages` branch, served by GitHub Pages at the custom domain above.
 
-## 📄 License
+To deploy by hand (e.g. from a feature branch), run `npm run deploy` from `portfolio/`. The next push to `main` will overwrite it.
 
-This project is open source and available under the [MIT License](LICENSE).
+## Contact
 
-## 📫 Contact
-
-Nathnael Tesfaw - [nbt26@cornell.edu](mailto:nbt26@cornell.edu)
-
-LinkedIn - [nathnael-tesfaw](https://linkedin.com/in/nathnael-tesfaw)
+Nathnael Tesfaw — [nbt26@cornell.edu](mailto:nbt26@cornell.edu) · [LinkedIn](https://linkedin.com/in/nathnael-tesfaw)
