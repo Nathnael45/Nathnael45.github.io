@@ -11,6 +11,7 @@ export type Experience = {
 export type Project = {
   id: string
   title: string
+  category: string
   period: string
   description: string
   detail: string
@@ -34,26 +35,14 @@ export const experiences: Experience[] = [
   {
     org: "Workday",
     role: "Software Engineer Intern",
-    period: "May 2026 – Present",
+    period: "May – Aug 2026",
     location: "Pleasanton, CA",
     bullets: [
-      "Led a solo proof of concept adopting GUAC for vulnerability blame assignment across Workday's containers, approved by leadership for phased fleet-wide rollout.",
-      "Designed the architecture to pin each vulnerability to its owning team: cross-referencing SARIF scan findings against GUAC's dependency graph and a package-ownership database.",
-      "Built a full-stack visualization tool to demo the POC: explores GUAC's dependency graph and, per package, separates its native vulnerabilities from those inherited through its dependencies.",
-      "Deploying Build Doctor to production, a Python tool that fixes broken builds blocking security scans — 41/41 repos diagnosed with zero misses, expected to cut Snyk's build failure rate from 30% to 10%.",
+      "Architected a vulnerability-ownership system as the sole engineer, integrating GUAC (an open-source dependency graph) with Workday's internal tools, approved by leadership for fleet-wide rollout.",
+      "Created a full-stack tool to demo the POC to stakeholders, visualizing the dependency graph and separating each package's own vulnerabilities from inherited ones.",
+      "Designed and deployed Build Doctor, a Python agent that auto-repairs failing builds, expected to cut the failure rate from 30% to 10%.",
     ],
-    tags: ["Python", "GUAC", "SARIF", "Docker", "Snyk"],
-  },
-  {
-    org: "Carnegie Mellon University",
-    role: "Software Engineering Intern",
-    period: "May – Aug 2025",
-    location: "Pittsburgh, PA",
-    bullets: [
-      "Engineered a GPT-4–powered cybersecurity extension that guides users toward secure behaviors, presented to hundreds of Pennsylvania state government representatives.",
-      "Designed large-scale data processing pipelines in Python (NumPy) to analyze 6,000+ LLM outputs, improving response actionability by 50% through prompt iteration and scoring.",
-    ],
-    tags: ["Python", "NumPy", "GPT-4"],
+    tags: ["Python", "GUAC", "Docker", "Full-Stack"],
   },
   {
     org: "Rethink Food @ Hack4Impact Cornell",
@@ -61,10 +50,21 @@ export const experiences: Experience[] = [
     period: "Aug – Dec 2025",
     location: "Ithaca, NY",
     bullets: [
-      "Led a team of 7 developers and designers to deliver a production web application from requirements through deployment for a nonprofit combating food insecurity across New York City.",
-      "Built an interactive data visualization platform using Mapbox to display data from 10,000+ restaurants and community organizations, improving transparency and donor engagement.",
+      "Led a team of 7 to ship a production web app for a nonprofit fighting food insecurity in New York City.",
+      "Built a Mapbox platform mapping food-donation flows across 10,000+ restaurants and community orgs to recruit new donors.",
     ],
     tags: ["Next.js", "Mapbox", "Node.js", "TypeScript"],
+  },
+  {
+    org: "Carnegie Mellon University",
+    role: "Software Engineering Intern",
+    period: "May – Aug 2025",
+    location: "Pittsburgh, PA",
+    bullets: [
+      "Engineered a GPT-4–powered browser extension for safer online behavior, presented to hundreds of Pennsylvania state government representatives.",
+      "Added survey-driven personalization for the extension and a GPT-4 scoring pipeline to evaluate it, raising response actionability 50% across 6,000+ tests.",
+    ],
+    tags: ["Python", "NumPy", "GPT-4"],
   },
   {
     org: "Hack4Impact Cornell",
@@ -114,18 +114,36 @@ export const experiences: Experience[] = [
 // ─── Projects ─────────────────────────────────────────────────────────────────
 
 export const projects: Project[] = [
+  // ── Fall 2026 ────────────────────────────────────────────────────────────────
+  {
+    id: "distributed-kv",
+    title: "Distributed Key-Value Store",
+    category: "Distributed Systems",
+    period: "Sep 2026 – Present",
+    description: "Fault-tolerant, Paxos-replicated key-value store with exactly-once RPC",
+    detail:
+      "A key-value store built to survive an unreliable network and server failures: an exactly-once RPC layer, Paxos-based replication that stays consistent and available while a majority of servers are up, and in-progress sharding and transactions across replica groups.",
+    features: [
+      "Implemented an exactly-once RPC layer over an unreliable network, guaranteeing at-most-once execution.",
+      "Built replication on Paxos, keeping the store consistent and available as long as a majority of servers are up.",
+      "Adding sharding and transactions to scale the store across replica groups.",
+    ],
+    tags: ["Java", "Paxos", "RPC", "Replication", "Sharding"],
+    image: "/placeholder.jpg",
+  },
   // ── Spring 2026 ──────────────────────────────────────────────────────────────
   {
     id: "devaudit",
     title: "DevAudit",
-    period: "Jan 2026 – Present",
-    description: "Full-stack AI security-auditing agent for GitHub repositories",
+    category: "Full-Stack · Security",
+    period: "Jan – Sep 2026",
+    description: "Full-stack AI agent that scans codebases for security flaws and triages findings with Claude",
     detail:
-      "DevAudit clones a GitHub repo and runs Semgrep, Bandit, and Gitleaks in parallel, streaming Claude's live reasoning and triaged findings to the browser as it works. Backed by 88 automated tests (Vitest, run against a real Postgres) across API, worker, and frontend, wired into a GitHub Actions pipeline that runs lint, typecheck, and the full suite on every push.",
+      "DevAudit clones a repository, runs Semgrep, Bandit, and Gitleaks in parallel, and uses Claude to triage the findings while streaming its reasoning live to the browser. Backed by 102 automated tests with CI, and validated across 28 real-world repos in 7 languages.",
     features: [
-      "Built a full-stack AI security-auditing agent that clones a GitHub repo, runs Semgrep, Bandit, and Gitleaks in parallel, and streams Claude's live reasoning and triaged findings to the browser as it works.",
-      "Wrote 88 automated tests (Vitest, run against a real Postgres) across API, worker, and frontend, wired into a GitHub Actions pipeline that runs lint, typecheck, and the full suite on every push.",
-      "Root-caused production bugs through controlled experiments: traced a silent Semgrep timeout to AWS burstable-CPU throttling, and a truncated AI response to an undersized max_tokens.",
+      "Built a full-stack AI agent that scans codebases for security flaws and uses Claude to triage the findings.",
+      "Wrote 102 automated tests with CI, and validated the agent across 28 real-world repos in 7 languages.",
+      "Debugged and fixed subtle production bugs, including a race condition that was silently misreporting successful audits as failures.",
     ],
     tags: ["TypeScript", "Next.js", "Node.js", "Claude API", "PostgreSQL", "Redis", "Docker", "AWS"],
     githubUrl: "https://github.com/Nathnael45/DevAudit",
@@ -134,37 +152,39 @@ export const projects: Project[] = [
   {
     id: "tower-of-the-tail",
     title: "Tower of the Tail",
+    category: "Game",
     period: "Jan – May 2026 · CIS 3152",
-    description: "Fully playable polished game built from scratch with a 9-person team",
+    description: "Downloadable 2D platformer built from scratch by a 9-person team of developers and designers",
     detail:
-      "A fully playable, polished game built from scratch in a 9-person team (developers + designers) for Cornell's Practicum in Game Design. Contributed as developer: owned level design and the MVC architecture for the level/controller system.",
+      "A downloadable 2D platformer built from scratch for Cornell's Game Design Practicum. I developed core gameplay — player mechanics, platforms, and the item merge/unmerge logic — and owned the Architecture Specification, the design doc that guided the team's engineering across milestones.",
     features: [
-      "Fully playable with polished art and sound from a 9-person team",
-      "MVC architecture for level and controller systems",
-      "Owned level design end-to-end",
+      "Developed core gameplay for a downloadable 2D platformer on a 9-person team: player mechanics, platforms, and item merge/unmerge logic.",
+      "Owned the Architecture Specification, the design doc guiding the team's engineering across milestones.",
     ],
     tags: ["Java", "LibGDX"],
     demoUrl: "https://gdiac.cs.cornell.edu/gdiac/showcase/games/tower_of_the_tail/",
-    image: "/prev.png",
+    image: "/placeholder.jpg",
   },
   {
     id: "dreambooth",
     title: "DreamBooth Re-implementation",
-    period: "Spring 2026 · CS 4782",
+    category: "ML / AI",
+    period: "Mar – May 2026 · CS 4782",
     description: "From-scratch re-implementation of DreamBooth fine-tuning for Stable Diffusion",
     detail:
       "Re-implemented DreamBooth (Ruiz et al. 2023) from scratch — fine-tunes Stable Diffusion v1.5 from 3–5 reference photos using full UNet fine-tuning and LoRA variants with prior-preservation loss. Achieved CLIP-T of 0.30 vs. the paper's 0.305.",
     features: [
-      "Re-implemented DreamBooth (Ruiz et al. 2023) from scratch, fine-tuning Stable Diffusion v1.5 for subject-driven image generation from as few as 3–5 reference photos.",
-      "Built full UNet fine-tuning and LoRA variants with prior-preservation loss, matching the paper's benchmark for prompt fidelity (CLIP-T 0.30 vs. 0.305 reported).",
+      "Re-implemented DreamBooth (Ruiz et al. 2023) from scratch, reproducing the paper's subject-driven image generation from just 3–5 photos.",
+      "Extended it with LoRA fine-tuning beyond the original paper, matching its benchmark results at a fraction of the compute.",
     ],
-    tags: ["PyTorch", "Diffusers", "HuggingFace"],
+    tags: ["Python", "PyTorch", "Diffusers", "LoRA"],
     githubUrl: "https://github.com/Anthony-PB/cs4782finalDream",
     image: "/placeholder.jpg",
   },
   {
     id: "last-mile-transit",
     title: "NYC Last-Mile Subway-to-Taxi Analysis",
+    category: "Data Science",
     period: "Spring 2026 · ORIE 3120",
     description: "Spatial data pipeline identifying NYC subway stations with disproportionate last-mile taxi demand",
     detail:
@@ -183,6 +203,7 @@ export const projects: Project[] = [
   {
     id: "nbody-simulation",
     title: "3D N-Body Gravity Simulation",
+    category: "Simulation",
     period: "Fall 2025 · CS 3110",
     description: "Modular n-body physics engine in OCaml with an interactive 3D visualization",
     detail:
@@ -200,6 +221,7 @@ export const projects: Project[] = [
   {
     id: "greenzone",
     title: "Greenzone",
+    category: "Full-Stack",
     period: "Jan – May 2025",
     description: "Carrying-capacity early-warning web app for rangeland degradation in Mongolia",
     detail:
@@ -215,6 +237,7 @@ export const projects: Project[] = [
   {
     id: "embedded-keys",
     title: "Embedded Keys",
+    category: "Embedded",
     period: "Spring 2025 · ECE 3140",
     description: "Digital piano on the NXP FRDM-KL46Z board using its capacitive slider and a passive buzzer",
     detail:
@@ -234,6 +257,7 @@ export const projects: Project[] = [
   {
     id: "lost-and-found",
     title: "Lost and Found App",
+    category: "Mobile",
     period: "Fall 2024",
     description: "Fullstack iOS app connecting people who lost items with those who found them",
     detail:
@@ -253,6 +277,7 @@ export const projects: Project[] = [
   {
     id: "workout-hub",
     title: "Workout Hub",
+    category: "Full-Stack",
     period: "Spring 2024",
     description: "MERN-stack fitness tracking app for logging workouts and visualizing progress",
     detail:
@@ -272,6 +297,7 @@ export const projects: Project[] = [
   {
     id: "interactive-image-selector",
     title: "Interactive Image Selector",
+    category: "Desktop",
     period: "Spring 2024 · CS 2110",
     description: "Java Swing tool for selecting and extracting arbitrary image regions using Dijkstra's algorithm",
     detail:
@@ -289,6 +315,7 @@ export const projects: Project[] = [
   {
     id: "space-game",
     title: "Space Game",
+    category: "Game",
     period: "Fall 2023 · CS 1110",
     description: "Modernized space invaders built in Python with dynamic scoring and custom audio",
     detail:
@@ -311,15 +338,15 @@ export const projects: Project[] = [
 export const skillGroups: SkillGroup[] = [
   {
     category: "Languages",
-    skills: ["Python", "Java", "TypeScript", "C", "SQL", "Bash", "HTML/CSS"],
+    skills: ["Python", "Java", "TypeScript", "C", "Rust", "SQL", "GraphQL", "Bash", "HTML/CSS"],
   },
   {
-    category: "Frameworks",
+    category: "Frameworks & Libraries",
     skills: ["React.js", "Next.js", "Node.js", "Express.js", "Flask", "PyTorch", "NumPy", "Pandas"],
   },
   {
     category: "Databases & Cloud",
-    skills: ["AWS", "Google Cloud Platform", "PostgreSQL", "Redis", "MongoDB", "Supabase"],
+    skills: ["AWS", "Google Cloud Platform", "PostgreSQL", "MongoDB", "Supabase"],
   },
   {
     category: "Tools",
@@ -330,11 +357,74 @@ export const skillGroups: SkillGroup[] = [
 // ─── Coursework ───────────────────────────────────────────────────────────────
 
 export const coursework = [
-  "OOP & Data Structures", "Computer Organization", "Embedded Systems",
-  "Machine Learning", "Deep Learning", "Cybersecurity", "Analysis of Algorithms",
-  "Practicum in Game Design", "Practical Tools for OR/ML/DS",
+  "Data Structures", "Functional Programming", "Algorithms", "Machine Learning", "Deep Learning",
+  "Cybersecurity", "Distributed Computing Principles", "Systems Programming", "Systems for Large-Scale ML",
 ]
 
-// ─── Featured projects shown on homepage ──────────────────────────────────────
+// ─── Homepage selection ───────────────────────────────────────────────────────
 
-export const featuredProjectIds = ["devaudit", "dreambooth", "greenzone"]
+export const featuredExperienceCount = 3
+export const featuredProjectIds = ["distributed-kv", "devaudit", "dreambooth", "tower-of-the-tail"]
+
+// ─── Homepage copy ────────────────────────────────────────────────────────────
+
+export type RichText = { text: string; strong?: boolean; highlight?: boolean }[]
+
+export const profile = {
+  name: "Nathnael Tesfaw",
+  email: "nbt26@cornell.edu",
+  resume: "/resume.pdf",
+  photo: "/mepicture.jpg",
+  github: "https://github.com/Nathnael45",
+  linkedin: "https://linkedin.com/in/nathnael-tesfaw/",
+}
+
+export const heroIntro: RichText = [
+  { text: "Computer Science senior at " },
+  { text: "Cornell", strong: true },
+  { text: ", most recently a " },
+  { text: "Software Engineer Intern at Workday", highlight: true },
+  { text: ". I build distributed systems, full-stack products, and AI tooling — with a strong bias toward shipping real things people use." },
+]
+
+export const aboutStatement: RichText = [
+  { text: "Focused on " },
+  { text: "distributed systems", strong: true },
+  { text: ", " },
+  { text: "full-stack engineering", strong: true },
+  { text: ", and " },
+  { text: "ML/AI", strong: true },
+  { text: " — most of what's here has shipped to real users or been benchmarked against a real paper." },
+]
+
+export const aboutDetail =
+  "I'm graduating from Cornell in May 2027 with a Minor in Artificial Intelligence. This summer at Workday I architected a vulnerability-ownership system as the sole engineer; this fall I'm building a Paxos-replicated key-value store."
+
+export const education = {
+  school: "Cornell University",
+  degree: "B.S. Computer Science · Minor in Artificial Intelligence",
+  meta: "College of Engineering · GPA 3.5",
+  period: "Aug 2023 – May 2027",
+}
+
+export const sectionCopy = {
+  about: { label: "About", title: "A bit about me" },
+  experience: { label: "Experience", title: "Where I've worked" },
+  projects: { label: "Projects", title: "Builds & experiments" },
+  contact: {
+    label: "Contact",
+    title: "Let's build something.",
+    body: "Open to interesting problems and good conversations. Best reached by email.",
+  },
+  seeMore: "See more",
+  showLess: "Show less",
+  education: "Education",
+  coursework: "Coursework",
+  skills: "Skills",
+  resume: "Resume",
+  credit: {
+    text: "Credit for the design to Kushal Patel",
+    url: "https://kushal-patel-portfolio.netlify.app/",
+    label: "kushal-patel-portfolio.netlify.app",
+  },
+}
