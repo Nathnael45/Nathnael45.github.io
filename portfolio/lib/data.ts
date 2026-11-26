@@ -121,6 +121,42 @@ export const experiences: Experience[] = [
 export const projects: Project[] = [
   // ── Fall 2026 ────────────────────────────────────────────────────────────────
   {
+    id: "dining-allergens",
+    title: "Cornell Dining Allergen Finder",
+    category: "Full-Stack · AI",
+    period: "Nov 2026",
+    description: "Shows what you can eat in every Cornell dining hall today, with each new dish's allergens researched once by Claude",
+    detail:
+      "Cornell's dining API only publishes dish names, so the app ingests menus three times a day and has Claude research each never-seen dish once, storing a versioned allergen profile in Postgres. Answers are merged conservatively with keyword rules, Cornell's official labels, and hall policies, and an eval against official labels found 0 false \"fits\" for the 9 major allergens plus gluten.",
+    features: [
+      "Filters every hall's menu by the 9 major allergens, gluten, and diet, sorting dishes into Fits, Check, and Avoid.",
+      "Researches each distinct dish once with Claude (about $0.02 per dish) and reuses the result from Postgres.",
+      "Evaluated blind against Cornell's official labels: 2 false \"fits\" in 417 allergen-positive cases, 0 for the major allergens.",
+      "Installable PWA with a mobile bottom sheet and shareable URLs.",
+    ],
+    tags: ["TypeScript", "Next.js", "Claude API", "PostgreSQL", "Neon", "Vercel"],
+    githubUrl: "https://github.com/Nathnael45/cornell-dining-allergens",
+    demoUrl: "https://cornell-dining-allergens.vercel.app",
+    image: "/placeholder.jpg",
+  },
+  {
+    id: "newgrad-radar",
+    title: "newgrad-radar",
+    category: "Tooling",
+    period: "Oct 2026",
+    description: "Job finder that reads each posting to confirm it's really new-grad and fits your survey-defined profile",
+    detail:
+      "Collects new-grad SWE listings from the big GitHub job lists and ~90 companies' Greenhouse, Lever, and Ashby feeds, dedupes them, then reads each job description to pull out pay, location, and experience requirements. Every job is either logged with a fit rating and a reason, or skipped with one (e.g. asks for 2+ years, Master's only, needs clearance). Outputs CSV, Markdown, and optionally Notion.",
+    features: [
+      "Aggregates listings from public job lists and ~90 company job-board feeds, removing duplicates across sources.",
+      "Parses job descriptions from Greenhouse, Lever, Ashby, Workday, and more to verify new-grad eligibility.",
+      "Explains every skipped job, and only shows postings it hasn't seen before.",
+    ],
+    tags: ["Python", "Web Scraping", "Notion API"],
+    githubUrl: "https://github.com/Nathnael45/newgrad-radar",
+    image: "/placeholder.jpg",
+  },
+  {
     id: "distributed-kv",
     title: "Distributed Key-Value Store",
     category: "Distributed Systems",
@@ -142,7 +178,7 @@ export const projects: Project[] = [
     title: "DevAudit",
     category: "Full-Stack · Security",
     period: "Jan – Sep 2026",
-    description: "Full-stack AI agent that scans codebases for security flaws and triages findings with Claude",
+    description: "AI security agent that scans GitHub repos with Semgrep, Bandit, and Gitleaks, then triages the findings with Claude",
     detail:
       "DevAudit clones a repository, runs Semgrep, Bandit, and Gitleaks in parallel, and uses Claude to triage the findings while streaming its reasoning live to the browser. Backed by 102 automated tests with CI, and validated across 28 real-world repos in 7 languages.",
     features: [
@@ -152,6 +188,7 @@ export const projects: Project[] = [
     ],
     tags: ["TypeScript", "Next.js", "Node.js", "Claude API", "PostgreSQL", "Redis", "Docker", "AWS"],
     githubUrl: "https://github.com/Nathnael45/DevAudit",
+    demoUrl: "https://devaudit.nathnaeltesfaw.dev/",
     image: "/placeholder.jpg",
   },
   {
@@ -159,7 +196,7 @@ export const projects: Project[] = [
     title: "Tower of the Tail",
     category: "Game",
     period: "Jan – May 2026 · CIS 3152",
-    description: "Downloadable 2D platformer built from scratch by a 9-person team of developers and designers",
+    description: "2D platformer built from scratch by a 9-person team; I built core gameplay and owned the architecture spec",
     detail:
       "A downloadable 2D platformer built from scratch for Cornell's Game Design Practicum. I developed core gameplay — player mechanics, platforms, and the item merge/unmerge logic — and owned the Architecture Specification, the design doc that guided the team's engineering across milestones.",
     features: [
@@ -171,11 +208,29 @@ export const projects: Project[] = [
     image: "/placeholder.jpg",
   },
   {
+    id: "whiteboard",
+    title: "Collaborative Whiteboard",
+    category: "Full-Stack · Real-Time",
+    period: "Mar 2026",
+    description: "Real-time multiplayer whiteboard with shared rooms, live cursors, sticky notes, and chat",
+    detail:
+      "A browser whiteboard where everyone in a room draws together in real time. A Node.js and Socket.IO server broadcasts every change, and Redis persists each room's board so it survives restarts, with an in-memory fallback for local development.",
+    features: [
+      "Syncs drawing, shapes, text, and sticky notes across users in real time over Socket.IO.",
+      "Shows live cursors, a user list, and in-room chat, plus pan, zoom, and a minimap.",
+      "Persists rooms in Redis with a 7-day expiry, falling back to memory when Redis isn't configured.",
+    ],
+    tags: ["React", "Node.js", "Socket.IO", "Redis", "Express"],
+    githubUrl: "https://github.com/Nathnael45/whiteboard",
+    demoUrl: "https://whiteboard-one-pi.vercel.app",
+    image: "/placeholder.jpg",
+  },
+  {
     id: "dreambooth",
     title: "DreamBooth Re-implementation",
     category: "ML / AI",
     period: "Mar – May 2026 · CS 4782",
-    description: "From-scratch re-implementation of DreamBooth fine-tuning for Stable Diffusion",
+    description: "From-scratch DreamBooth for Stable Diffusion, extended with LoRA to match the paper's results at a fraction of the compute",
     detail:
       "Re-implemented DreamBooth (Ruiz et al. 2023) from scratch — fine-tunes Stable Diffusion v1.5 from 3–5 reference photos using full UNet fine-tuning and LoRA variants with prior-preservation loss. Achieved CLIP-T of 0.30 vs. the paper's 0.305.",
     features: [
@@ -191,7 +246,7 @@ export const projects: Project[] = [
     title: "NYC Last-Mile Subway-to-Taxi Analysis",
     category: "Data Science",
     period: "Spring 2026 · ORIE 3120",
-    description: "Spatial data pipeline identifying NYC subway stations with disproportionate last-mile taxi demand",
+    description: "Spatial analysis of 2024 MTA and taxi trip data to find the NYC subway stations with outsized last-mile taxi demand",
     detail:
       "Built a full spatial analytics pipeline over 2024 MTA ridership and Yellow/Green/HVFHV taxi trip parquets. Matched every taxi zone to its nearest subway station via cKDTree + 500m radius with area-proportional weighting, ran a 10,000-iteration Monte Carlo simulation to produce per-station, per-hour positioning scores for drivers, and ran a formal multinomial hypothesis test (Gini + top-station share) to confirm pickup concentration is statistically significant beyond ridership alone.",
     features: [
@@ -210,7 +265,7 @@ export const projects: Project[] = [
     title: "3D N-Body Gravity Simulation",
     category: "Simulation",
     period: "Fall 2025 · CS 3110",
-    description: "Modular n-body physics engine in OCaml with an interactive 3D visualization",
+    description: "OCaml n-body gravity engine with collision detection and an interactive 3D Raylib visualization",
     detail:
       "Built a modular n-body physics engine in OCaml using functional programming, implementing gravitational dynamics, collision detection, and state management across 7+ modules, validated with 40+ OUnit tests. Developed an interactive 3D visualization system with orbital trails, dynamic camera controls, and live parameter editing; implemented quadratic-time collision detection across multiple astronomical scenarios.",
     features: [
@@ -228,7 +283,7 @@ export const projects: Project[] = [
     title: "Greenzone",
     category: "Full-Stack",
     period: "Jan – May 2025",
-    description: "Carrying-capacity early-warning web app for rangeland degradation in Mongolia",
+    description: "Early-warning web app tracking rangeland degradation for 300,000+ herders across Mongolia",
     detail:
       "Built for Hack4Impact Cornell, Greenzone serves 300,000+ herders and 71M livestock with real-time remote-sensing and biomass data. Secure RESTful APIs backed by Supabase ingest satellite datasets to power an interactive map dashboard.",
     features: [
@@ -236,7 +291,6 @@ export const projects: Project[] = [
       "Implemented secure RESTful APIs and integrated Supabase to ingest and visualize large-scale remote-sensing and biomass datasets in real time, enabling data-driven land management decisions.",
     ],
     tags: ["Next.js", "Node.js", "Express.js", "PostgreSQL", "Supabase", "Git"],
-    githubUrl: "https://github.com/Nathnael45/greenzone",
     image: "/Screenshot 2025-06-30 110412.png",
   },
   {
@@ -244,7 +298,7 @@ export const projects: Project[] = [
     title: "Embedded Keys",
     category: "Embedded",
     period: "Spring 2025 · ECE 3140",
-    description: "Digital piano on the NXP FRDM-KL46Z board using its capacitive slider and a passive buzzer",
+    description: "Digital piano on an NXP KL46Z board: capacitive-slider keys, interrupt-driven PWM tones, and LED feedback",
     detail:
       "This project turns the KL46Z's onboard touch slider and two buttons into a 7-zone keyboard (notes C–B), drives a passive piezo buzzer via PIT-driven PWM for tone generation, and uses the RGB LED for visual feedback. It also plays a special tune hidden behind a button-hold Easter egg.",
     features: [
@@ -258,13 +312,30 @@ export const projects: Project[] = [
     learnMoreUrl: "https://pages.github.coecis.cornell.edu/ece3140-sp2025/ap2357-dev38-nbt26/",
     image: "/embedded.png",
   },
+  {
+    id: "study-buddy",
+    title: "Study Buddy",
+    category: "Backend",
+    period: "Jan 2025",
+    description: "Flask API that matches Cornell students with study partners by shared courses, schedules, and preferences",
+    detail:
+      "Backend for a study-partner matching app. Students upload their class schedule as an .ics file; the API parses it into availability, finds coursemates, ranks them by a preference and availability match score, and lets users reach out by email.",
+    features: [
+      "Parses uploaded .ics calendars into compressed weekly availability.",
+      "Ranks coursemates by a match score built from shared courses, preferences, and free time.",
+      "Session-based auth with hashed passwords, containerized with Docker.",
+    ],
+    tags: ["Python", "Flask", "SQLAlchemy", "Docker"],
+    githubUrl: "https://github.com/Nathnael45/Study-Buddy-Backend",
+    image: "/placeholder.jpg",
+  },
   // ── Fall 2024 ─────────────────────────────────────────────────────────────────
   {
     id: "lost-and-found",
     title: "Lost and Found App",
     category: "Mobile",
     period: "Fall 2024",
-    description: "Fullstack iOS app connecting people who lost items with those who found them",
+    description: "iOS app with a Flask backend on Google Cloud that connects people who lost items with people who found them",
     detail:
       "The Lost and Found App is an iOS application developed to help people recover lost items by connecting them with individuals who have found these items. The app uses geolocation to show nearby lost and found reports and facilitates communication between users.",
     features: [
@@ -284,7 +355,7 @@ export const projects: Project[] = [
     title: "Workout Hub",
     category: "Full-Stack",
     period: "Spring 2024",
-    description: "MERN-stack fitness tracking app for logging workouts and visualizing progress",
+    description: "MERN-stack app for logging workouts and tracking progress over time",
     detail:
       "Workout Hub is a full-stack web application designed to help fitness enthusiasts track their workouts, set goals, and monitor their progress over time. Users can create accounts, log exercises, and view their performance analytics through an intuitive dashboard.",
     features: [
@@ -304,7 +375,7 @@ export const projects: Project[] = [
     title: "Interactive Image Selector",
     category: "Desktop",
     period: "Spring 2024 · CS 2110",
-    description: "Java Swing tool for selecting and extracting arbitrary image regions using Dijkstra's algorithm",
+    description: "Java Swing tool that cuts out image regions with an \"intelligent scissors\" live-wire built on Dijkstra's algorithm",
     detail:
       "Selector App (CS 2110 Final project) is a Java/Swing desktop application offering two selection modes. In Point-to-Point mode, you build straight-line segments by clicking endpoints. In Intelligent Scissors mode, the app computes real-time live-wire paths using Dijkstra's algorithm on a pixel graph with interchangeable monotone or full-color weight functions.",
     features: [
@@ -322,7 +393,7 @@ export const projects: Project[] = [
     title: "Space Game",
     category: "Game",
     period: "Fall 2023 · CS 1110",
-    description: "Modernized space invaders built in Python with dynamic scoring and custom audio",
+    description: "Space Invaders-style Python game with waves of rising difficulty, scoring, and custom audio",
     detail:
       "Space Game is a vastly updated and customized version of the invader's final project for CS 1110. Built using Kivy and Python, this multi-layered space-themed game features advanced gameplay mechanics, dynamic scoring systems, and immersive audio-visual elements.",
     features: [
@@ -333,7 +404,7 @@ export const projects: Project[] = [
       "Enhanced gameplay mechanics and controls",
     ],
     tags: ["Python", "Kivy", "Game Development"],
-    githubUrl: "https://github.com/nathnael45/space-game",
+    githubUrl: "https://github.com/Nathnael45/Space-Game",
     image: "/invaders.png",
   },
 ]
